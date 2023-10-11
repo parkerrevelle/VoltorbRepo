@@ -8,7 +8,7 @@ class NineMansMorrisGUI(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('Nine Mans Morris')
-        self.geometry('600x600')
+        self.geometry('900x600')
         self.locations = Locations()  
         self.buttons = {}
         
