@@ -1,5 +1,5 @@
 
-class OccupiedLocations:
+class Locations:
     def __init__(self):
         # 24 positions initialized to 0 (empty)
         self.board = [0] * 24
@@ -92,7 +92,7 @@ class OccupiedLocations:
             return False
 
 # Example usage
-game = OccupiedLocations()
+game = Locations()
 
 # Player 1 places a piece and forms a mill
 game.place_piece(0)

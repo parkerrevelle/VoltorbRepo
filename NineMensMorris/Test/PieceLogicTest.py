@@ -1,10 +1,10 @@
 import unittest
-from NineMensMorris.Prod.GameLogic.PieceLogic import OccupiedLocations
+from NineMensMorris.Prod.GameLogic.PieceLogic import Locations
 
 class TestOccupiedLocations(unittest.TestCase):
 
     def setUp(self):
-        self.game = OccupiedLocations()
+        self.game = Locations()
 
     def test_place_piece_valid(self):
         self.assertTrue(self.game.place_piece(0))
