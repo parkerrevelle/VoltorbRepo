@@ -109,4 +109,5 @@ game.place_piece(3)
 # Player 1 removes a piece of Player 2
 game.remove_opponent_piece(3)
 
+print("done")
 
