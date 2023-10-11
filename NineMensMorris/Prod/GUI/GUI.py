@@ -9,7 +9,7 @@ class NineMansMorrisGUI(tk.Tk):
         super().__init__()
         self.title('Nine Mans Morris')
         self.geometry('600x600')
-        self.locations = Locations()  # I'm not sure what this is for, so I've commented it out
+        self.locations = Locations()  
         self.buttons = {}
         
         validLoc = [(0,0), (0,3), (0,6),
