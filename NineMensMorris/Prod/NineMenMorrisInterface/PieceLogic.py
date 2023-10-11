@@ -15,6 +15,7 @@ class Locations:
         :return: bool, True if the piece was placed successfully, False otherwise
         """
         if position in self.valid_positions and self.board[position] == 0:
+            tempPlayer=self.current_player
             self.board[position] = self.current_player
             self.piece_count[self.current_player] += 1  # Update piece count
             self.switch_player()
