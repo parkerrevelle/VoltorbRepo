@@ -19,9 +19,10 @@ class NineMansMorrisGUI(tk.Tk):
             self.buttons[i].grid(row=row, column=col)
 
     def click(self, position):
+        temp = self.locations.current_player
         if self.locations.place_piece(position):
-            self.buttons[position].config(text=str(self.locations.current_player))
-            print(f"Piece placed by {self.locations.current_player} at position {position}")
+            self.buttons[position].config(text=str(temp))
+            print(f"Piece placed by {temp} at position {position}")
         else:
             print("Invalid move. Try again.")
             messagebox.showinfo('Invalid', 'Invalid move. Try again.')
