@@ -1,3 +1,5 @@
+import Player
+
 class PlayerComp(Player):
     """Computer Player Actions https://jitpaul.blog/2017/07/18/ai-in-nine-men-s-morris-game/"""
     def __init__(self):
@@ -293,8 +295,6 @@ class Node:
         if all(board[p] == board[pos] for p in positions):
             return True
     return False
-
-
 
 
 
