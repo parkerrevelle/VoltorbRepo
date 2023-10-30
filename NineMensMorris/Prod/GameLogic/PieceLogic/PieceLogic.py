@@ -1,3 +1,7 @@
+#todo add moveValidator,
+
+
+
 
 class Locations:
     def __init__(self):
@@ -90,6 +94,42 @@ class Locations:
         else:
             print("Invalid removal. Try again.")
             return False
+    
+    def move_piece(self, moveFrom, moveTo):
+        neighbors = {
+        0: [1, 3, 8],
+        1: [0, 2, 4],
+        2: [1, 5, 13],
+        3: [0, 4, 6, 9],
+        4: [1, 3, 5],
+        5: [2, 4, 7, 12],
+        6: [3, 7, 10],
+        7: [5, 6, 11],
+        8: [0, 9, 20],
+        9: [3, 8, 10, 17],
+        10: [6, 9, 14],
+        11: [7, 12, 16],
+        12: [5, 11, 13, 19],
+        13: [2, 12, 22],
+        14: [10, 15, 17],
+        15: [14, 16, 18],
+        16: [11, 15, 19],
+        17: [9, 14, 18, 20],
+        18: [15, 17, 19, 21],
+        19: [12, 16, 18, 22],
+        20: [8, 17, 21],
+        21: [18, 20, 22],
+        22: [13, 19, 21],
+        }
+        
+        if moveTo in neighbors.get(moveFrom, []) and self.board[moveTo] == 0 and self.current_player == self.board[moveFrom]:
+          self.board[moveTo] = self.board[moveFrom]
+          self.board[moveFrom] = 0
+          return True
+        else: 
+          print("Invalid Location.")
+          return False
+
 
 # Example usage
 game = Locations()
@@ -108,5 +148,7 @@ game.place_piece(3)
 
 # Player 1 removes a piece of Player 2
 game.remove_opponent_piece(3)
+
+game.move_piece(0,3)
 
 

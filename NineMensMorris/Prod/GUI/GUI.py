@@ -20,6 +20,50 @@ class NineMansMorrisGUI(tk.Tk):
                     (5,1), (5,3), (5,5),
                     (6,0), (6,3), (6,6)]
 
+
+
+#while not first game and player wishes to continue
+#increment game count++
+#prompt player for pvp or p v comp
+#if prompt for pvp(possibly its own class)
+#   construct new board, 2 player objects
+#   do phase 1, while no mills exist for either player and total placed pieces less than 18
+#   Phase 1, player 1 places piece, validate location with piecelogic
+#          player 2 places piece, validate location with piecelogic 
+#          store recorded value to inmemory object(player|NotMoved|Move to position)
+#          switch player
+#   do phase 2 while player 1 has more than 3 pieces or player 2 has more than 3 pieces
+#   Phase 2, next player after phase 1s turn
+#         player moves along valid line to open location
+#         piecelogic enforce only valid lines to valid spaces, else repeat move
+#         if valid move store recorded value to inmemory object(player|Moved From|Move to position)
+#         Piecelogic check that moved position creates new mill
+#         if mill created then current player can select to remove other players piece
+#             if valid piece to remove, remove piece with piece logic 
+#             if valid other player piece removed, store recorded value to inmemory object(player|Moved From|Removed)
+#         if player1 or player2 has less than 3 pieces, then break, else continue
+#         switch player
+#   Phase 3(possibly does not exist, but only exists as a flag in phase 2;  check canFly =1 in piecelogic, check in phase2 movements and allow fly logic)
+#   Do phase 2, while player 1 or player 2 has more then 3 pieces
+#         next player after phase 2s turn
+#         player with canfly can use move any valid location from piece logic(possibly use place piece in piece logic?)
+#         reiterate with phase 2 logic of mill check
+#         
+#   completion(move out of pvp to main while?)
+#     add win count to winning player
+#     write in memory record to csv
+#     request if rewatch of game
+#     if rewatch is true, list timestamps
+#     request new game, if true reset, else break
+#else if prompt for p v comp(possibly its own class)
+#         
+
+
+
+#else if prompt for p v comp(possibly its own class)
+#construct new board, construct 1 player object, construct playercomp object
+
+
         for row in range(7):
             for col in range(7):
                 if (row, col) in validLoc:

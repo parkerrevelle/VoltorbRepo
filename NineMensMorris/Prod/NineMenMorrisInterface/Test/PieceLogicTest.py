@@ -59,5 +59,19 @@ class TestOccupiedLocations(unittest.TestCase):
         self.assertFalse(self.game.remove_opponent_piece(3))
         self.assertEqual(self.game.board[3], 1)
 
+    def test_move_piece_valid(self):
+        self.game.board[3] = 1
+        self.game.current_player = 1
+        self.assertTrue(self.game.move_piece(3,4))
+        self.assertEqual(self.game.board[3],0)
+        self.assertEqual(self.game.board[4],1)
+
+    def test_move_piece_invalid(self):
+        self.game.board[3] = 1
+        self.game.current_player = 1
+        self.assertTrue(self.game.move_piece(3,11))
+        self.assertFalse(self.game.board[3],0)
+        self.assertFalse(self.game.board[4],1)
+
 if __name__ == '__main__':
     unittest.main()
