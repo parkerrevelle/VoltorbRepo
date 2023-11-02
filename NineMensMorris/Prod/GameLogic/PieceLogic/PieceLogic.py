@@ -130,6 +130,16 @@ class Locations:
           print("Invalid Location.")
           return False
 
+    def is_game_over(self):
+        """
+        Check game state to see if game over has been accomplished
+        """
+        if piece_count.get(1) <= 2:
+            return True
+        if piece_count.get(2) <= 2:
+            return True
+        else:
+            return False
 
 # Example usage
 game = Locations()
