@@ -2,7 +2,7 @@ import sys
 sys.path.append('NineMensMorris/Prod/NineMenMorrisInterface')  
 import tkinter as tk
 from tkinter import messagebox
-from PieceLogic import Locations  
+from PieceLogic import Locations
 
 class NineMansMorrisGUI(tk.Tk):
     def __init__(self):
@@ -73,7 +73,7 @@ class NineMansMorrisGUI(tk.Tk):
                 else:
                     tk.Label(self, text=' ', width=10, height=3).grid(row=row, column=col)
 
-
+    #need to add 3rd variable int for wait flags
     def click(self, position):
         tempPlayer = self.locations.current_player
         if self.locations.place_piece(position):
@@ -82,7 +82,28 @@ class NineMansMorrisGUI(tk.Tk):
         else:
             print("Invalid move. Try again.")
             messagebox.showinfo('Invalid', 'Invalid move. Try again.')
+        #need to check at the end of every turn:
+        #was piece placed mill
+        if self.locations.is_mill(position):
+            #need to wait for new position selection
+            #self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.click(index))
+            #
+            self.locations.remove_opponent_piece(position)
+                #need a function for removing a piece from opponent
+        #check for player stage, place mode, move mode, fly mode
+            #if in move or fly mode, wait for second click
+                #if moving, check that they have selected their own piece
+                    #if yes, wait for second click
+                        #make sure move from old position to new is valid
+                #if flying, check for own piece
+                    #wait for second clicck
+                        #if second position is valid, fly
+            #else
+                #continue with piece placement
+        #finalize pieces, then switch turn
 
+    
+        
 
 if __name__ == '__main__':
     app = NineMansMorrisGUI()
