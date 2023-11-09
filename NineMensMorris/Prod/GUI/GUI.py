@@ -68,7 +68,7 @@ class NineMansMorrisGUI(tk.Tk):
             for col in range(7):
                 if (row, col) in validLoc:
                     index = validLoc.index((row, col))
-                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.locations.check_player_turn(self.buttons[index], index))
+                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.check_player_turn(self.buttons[index], index))
                     self.buttons[index].grid(row=row, column=col)
                 else:
                     tk.Label(self, text=' ', width=10, height=3).grid(row=row, column=col)
@@ -110,7 +110,40 @@ class NineMansMorrisGUI(tk.Tk):
     def button_position(self, position):
         return position
 
-    
+    def check_player_turn(self, button, position):
+        #if the player still has pieces to place
+        if self.locations.piece_count[self.locations.current_player] > self.locations.pieces_placed[self.locations.current_player]:
+            self.locations.player_phases[self.locations.current_player] = 1
+            if self.locations.place_piece(position):
+                button.config(text=str(self.locations.current_player))
+                self.locations.pieces_placed[self.locations.current_player] += 1
+                if self.locations.is_mill(position):
+                    tempButton = button
+                    print("Mill!")
+                    print("select piece to remove")
+                    self.wait_variable(button)
+                    self.locations.remove_opponent_piece(button)
+                    return
+                    #remove opponents piece
+        #else, check if the player has placed all of their pieces
+        elif self.locations.piece_count[self.locations.current_player] <= self.locations.pieces_placed[self.locations.current_player]:
+            #is the player flying phase
+            if self.locations.piece_count[self.locations.current_player] == 3:
+                self.locations.player_phases[self.locations.current_player] = 3
+                #call wait to get second position
+                #secPosition = button.wait_variable(position)
+                #self.fly_piece(button.index, secPosition.index)
+                return
+            else:
+                self.locations.player_phases[self.locations.current_player] = 2
+                #call wait to get second position
+                tempButton = button
+
+                self.wait_variable(button)
+                if self.locations.move_piece(position, button):
+                    button.config(text=str(self.locations.current_player))
+                    tempButton.config(text=str(""))
+        self.locations.switch_player()
         
 
 if __name__ == '__main__':

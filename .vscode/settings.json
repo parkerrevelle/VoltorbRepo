@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./NineMensMorris/Prod/GameLogic/PieceLogic",
+        "./NineMensMorris/Prod/NineMenMorrisInterface"
+    ]
+}

@@ -31,7 +31,6 @@ class Locations:
         if position in self.valid_positions and self.board[position] == 0:
             self.board[position] = self.current_player
             self.pieces_placed[self.current_player] += 1  # Update pieces placed
-            self.switch_player()
             return True
         else:
             print("Invalid move. Try again.")
@@ -59,7 +58,6 @@ class Locations:
         # Move the piece
         self.board[from_position] = 0
         self.board[to_position] = self.current_player
-        self.switch_player()
         return True
 
     def switch_player(self):
@@ -154,45 +152,10 @@ class Locations:
     def increment_turn(self):
         self.turn_count += 1
 
-    def check_player_turn(self, button, position):
-        if self.piece_count[self.current_player] > self.pieces_placed[self.current_player]:
-            self.player_phases[self.current_player] = 1
-            if self.place_piece(position):
-                button.config(text=str(self.current_player))
-
-        elif self.piece_count[self.current_player] <= self.pieces_placed[self.current_player]:
-            if self.piece_count[self.current_player] == 3:
-                self.player_phases[self.current_player] = 3
-                #call wait to get second position
-                #secPosition = button.wait_variable(position)
-                #self.fly_piece(button.index, secPosition.index)
-            else:
-                self.player_phases[self.current_player] = 2
-                #call wait to get second position
-                self.move_piece(button.index)
+    
             
         
 
 
-
-# Example usage
-game = Locations()
-
-# Player 1 places a piece and forms a mill
-game.place_piece(0)
-game.place_piece(1)
-game.place_piece(2)
-
-# Check if a mill is formed
-if game.is_mill(2):
-    print("A mill is formed!")
-
-# Player 2 places a piece
-game.place_piece(3)
-
-# Player 1 removes a piece of Player 2
-game.remove_opponent_piece(3)
-
-game.move_piece(0,3)
 
 
