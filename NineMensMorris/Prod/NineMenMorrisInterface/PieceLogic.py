@@ -28,9 +28,9 @@ class Locations:
         :param position: int, position on the board (0-23)
         :return: bool, True if the piece was placed successfully, False otherwise
         """
+        
         if position in self.valid_positions and self.board[position] == 0:
             self.board[position] = self.current_player
-            self.pieces_placed[self.current_player] += 1  # Update pieces placed
             return True
         else:
             print("Invalid move. Try again.")

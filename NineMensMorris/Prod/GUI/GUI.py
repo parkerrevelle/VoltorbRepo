@@ -11,6 +11,7 @@ class NineMansMorrisGUI(tk.Tk):
         self.geometry('900x600')
         self.locations = Locations()  
         self.buttons = {}
+        self.button_pressed = False
         
         validLoc = [(0,0), (0,3), (0,6),
                     (1,1), (1,3), (1,5),
@@ -68,13 +69,13 @@ class NineMansMorrisGUI(tk.Tk):
             for col in range(7):
                 if (row, col) in validLoc:
                     index = validLoc.index((row, col))
-                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.check_player_turn(self.buttons[index], index))
+                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.check_player_turn(self.buttons[index], index, validLoc))
                     self.buttons[index].grid(row=row, column=col)
                 else:
                     tk.Label(self, text=' ', width=10, height=3).grid(row=row, column=col)
 
     #need to add 3rd variable int for wait flags
-    def click(self, position, flag):
+    """def click(self, position, flag):
         tempPlayer = self.locations.current_player
          
         if flag == 0:
@@ -106,25 +107,39 @@ class NineMansMorrisGUI(tk.Tk):
                 #else
                     #continue with piece placement
             #finalize pieces, then switch turn
-        
+        """
     def button_position(self, position):
         return position
 
-    def check_player_turn(self, button, position):
+    def check_player_turn(self, button, position, validLoc):
+        
         #if the player still has pieces to place
         if self.locations.piece_count[self.locations.current_player] > self.locations.pieces_placed[self.locations.current_player]:
+            #set phase to 1  (placing)
             self.locations.player_phases[self.locations.current_player] = 1
-            if self.locations.place_piece(position):
-                button.config(text=str(self.locations.current_player))
-                self.locations.pieces_placed[self.locations.current_player] += 1
-                if self.locations.is_mill(position):
-                    tempButton = button
-                    print("Mill!")
-                    print("select piece to remove")
-                    self.wait_variable(button)
-                    self.locations.remove_opponent_piece(button)
-                    return
-                    #remove opponents piece
+            print(self.locations.is_mill(position))
+            #check to see if there is a mill before moving phase
+            if self.locations.is_mill(position) == False:
+                if self.locations.place_piece(position):
+                    print(f"Piece Placed by player {self.locations.current_player}")
+                    button.config(text=str(self.locations.current_player))
+                    if self.button_pressed == False:
+                        self.locations.pieces_placed[self.locations.current_player] += 1  
+                    print(F"Player {self.locations.current_player} pieces placed: {self.locations.pieces_placed[self.locations.current_player]}")
+            #if there is a mill, proceed here.
+            else:
+                print("here1")
+                for row in range(7):
+                    for col in range(7):
+                        if (row, col) in validLoc:
+                            index = validLoc.index((row, col))
+                            button.config(command=lambda index=index: self.second_click(index, validLoc))
+                print("Mill!")
+                print("select piece to remove")
+                self.wait_for_second_button()
+                print("here")
+                self.locations.remove_opponent_piece(button)
+                return
         #else, check if the player has placed all of their pieces
         elif self.locations.piece_count[self.locations.current_player] <= self.locations.pieces_placed[self.locations.current_player]:
             #is the player flying phase
@@ -145,6 +160,21 @@ class NineMansMorrisGUI(tk.Tk):
                     tempButton.config(text=str(""))
         self.locations.switch_player()
         
+    def second_click(self,index, validLoc):
+        self.button_pressed = True
+        self.reset_button_call()
+        return index
+
+    def reset_button_call(self, validLoc):
+        for row in range(7):
+            for col in range(7):
+                if (row, col) in validLoc:
+                    index = validLoc.index((row, col))
+                    self.buttons[index].config(command=lambda index=index: self.check_player_turn(self.buttons[index], index))
+
+    def wait_for_second_button(self):
+        self.button_pressed = False
+        app.wait_variable(self.button_pressed)
 
 if __name__ == '__main__':
     app = NineMansMorrisGUI()
