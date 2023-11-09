@@ -119,13 +119,18 @@ class NineMansMorrisGUI(tk.Tk):
             self.locations.player_phases[self.locations.current_player] = 1
             print(self.locations.is_mill(position))
             #check to see if there is a mill before moving phase
-            if self.locations.is_mill(position) == False:
+            print(f"Position: {position}")
+            if not self.locations.is_mill(position):
                 if self.locations.place_piece(position):
                     print(f"Piece Placed by player {self.locations.current_player}")
+                    
                     button.config(text=str(self.locations.current_player))
                     if self.button_pressed == False:
                         self.locations.pieces_placed[self.locations.current_player] += 1  
                     print(F"Player {self.locations.current_player} pieces placed: {self.locations.pieces_placed[self.locations.current_player]}")
+                else:
+                    self.locations.switch_player()
+                
             #if there is a mill, proceed here.
             else:
                 print("here1")

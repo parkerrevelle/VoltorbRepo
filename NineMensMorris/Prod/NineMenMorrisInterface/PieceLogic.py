@@ -31,6 +31,7 @@ class Locations:
         
         if position in self.valid_positions and self.board[position] == 0:
             self.board[position] = self.current_player
+            print(f"position: {position}, playerval: {self.board[position]}")
             return True
         else:
             print("Invalid move. Try again.")
