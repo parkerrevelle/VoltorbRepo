@@ -68,39 +68,41 @@ class NineMansMorrisGUI(tk.Tk):
             for col in range(7):
                 if (row, col) in validLoc:
                     index = validLoc.index((row, col))
-                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.click(index))
+                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.click(index, 0))
                     self.buttons[index].grid(row=row, column=col)
                 else:
                     tk.Label(self, text=' ', width=10, height=3).grid(row=row, column=col)
 
     #need to add 3rd variable int for wait flags
-    def click(self, position):
+    def click(self, position, flag):
         tempPlayer = self.locations.current_player
-        if self.locations.place_piece(position):
-            self.buttons[position].config(text=str(tempPlayer))
-            print(f"Piece placed by {self.locations.current_player} at position {position}")
-        else:
-            print("Invalid move. Try again.")
-            messagebox.showinfo('Invalid', 'Invalid move. Try again.')
+         
+        if flag == 0:
+            if self.locations.place_piece(position):
+                self.buttons[position].config(text=str(tempPlayer))
+                print(f"Piece placed by {self.locations.current_player} at position {position}")
+            else:
+                print("Invalid move. Try again.")
+                messagebox.showinfo('Invalid', 'Invalid move. Try again.')
         #need to check at the end of every turn:
         #was piece placed mill
-        if self.locations.is_mill(position):
-            #need to wait for new position selection
-            #self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.click(index))
-            #
-            self.locations.remove_opponent_piece(position)
-                #need a function for removing a piece from opponent
-        #check for player stage, place mode, move mode, fly mode
-            #if in move or fly mode, wait for second click
-                #if moving, check that they have selected their own piece
-                    #if yes, wait for second click
-                        #make sure move from old position to new is valid
-                #if flying, check for own piece
-                    #wait for second clicck
-                        #if second position is valid, fly
-            #else
-                #continue with piece placement
-        #finalize pieces, then switch turn
+        if flag == 1:
+            if self.locations.is_mill(position):
+                #need to wait for new position selection
+
+                self.locations.remove_opponent_piece(position)
+                    #need a function for removing a piece from opponent
+            #check for player stage, place mode, move mode, fly mode
+                #if in move or fly mode, wait for second click
+                    #if moving, check that they have selected their own piece
+                        #if yes, wait for second click
+                            #make sure move from old position to new is valid
+                    #if flying, check for own piece
+                        #wait for second clicck
+                            #if second position is valid, fly
+                #else
+                    #continue with piece placement
+            #finalize pieces, then switch turn
 
     
         

@@ -12,6 +12,7 @@ class Locations:
         self.valid_positions = set(range(24))
         # Track the number of pieces for each player
         self.piece_count = {1: 0, 2: 0}
+        self.turn_count = 0
 
     def place_piece(self, position):
         """
@@ -134,12 +135,16 @@ class Locations:
         """
         Check game state to see if game over has been accomplished
         """
-        if piece_count.get(1) <= 2:
+        if self.piece_count.get(1) <= 2:
             return True
-        if piece_count.get(2) <= 2:
+        if self.piece_count.get(2) <= 2:
             return True
         else:
             return False
+
+    def increment_turn(self):
+        self.turn_count += 1
+
 
 # Example usage
 game = Locations()
