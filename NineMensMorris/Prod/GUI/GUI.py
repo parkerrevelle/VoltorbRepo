@@ -68,7 +68,7 @@ class NineMansMorrisGUI(tk.Tk):
             for col in range(7):
                 if (row, col) in validLoc:
                     index = validLoc.index((row, col))
-                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.click(index, 0))
+                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.locations.check_player_turn(index))
                     self.buttons[index].grid(row=row, column=col)
                 else:
                     tk.Label(self, text=' ', width=10, height=3).grid(row=row, column=col)
@@ -86,12 +86,13 @@ class NineMansMorrisGUI(tk.Tk):
             else:
                 print("Invalid move. Try again.")
                 messagebox.showinfo('Invalid', 'Invalid move. Try again.')
+            NineMansMorrisGUI.wait_window(NineMansMorrisGUI)
         #need to check at the end of every turn:
         #was piece placed mill
         if flag == 1:
             if self.locations.is_mill(position):
                 #need to wait for new position selection
-
+                NineMansMorrisGUI.wait_window()
                 self.locations.remove_opponent_piece(position)
                     #need a function for removing a piece from opponent
             #check for player stage, place mode, move mode, fly mode
@@ -106,7 +107,8 @@ class NineMansMorrisGUI(tk.Tk):
                     #continue with piece placement
             #finalize pieces, then switch turn
         
-    
+    def button_position(self, position):
+        return position
 
     
         
