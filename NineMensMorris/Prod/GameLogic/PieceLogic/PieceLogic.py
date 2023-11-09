@@ -10,9 +10,17 @@ class Locations:
         self.current_player = 1  # Start with player 1
         # Define valid positions on the board
         self.valid_positions = set(range(24))
-        # Track the number of pieces for each player
-        self.piece_count = {1: 0, 2: 0}
+        # Track total number of pieces for each player
+        self.piece_count = {1: 9, 2: 9}
+        # Track how many pieces have been placed on the board
+        self.pieces_placed = {1: 0, 2: 0}
+        #active turn count
         self.turn_count = 0
+        #bool for if player can fly
+        self.can_fly = {1: False, 2: False}
+        #value for player phases: 1 is placing pieces, 2 is moving pieces, 3 is flying pieces
+        self.player_phases = {1: 1, 2: 1}
+        
 
     def place_piece(self, position):
         """
@@ -22,7 +30,7 @@ class Locations:
         """
         if position in self.valid_positions and self.board[position] == 0:
             self.board[position] = self.current_player
-            self.piece_count[self.current_player] += 1  # Update piece count
+            self.pieces_placed[self.current_player] += 1  # Update pieces placed
             self.switch_player()
             return True
         else:
@@ -91,6 +99,7 @@ class Locations:
         opponent = 3 - self.current_player
         if self.board[position] == opponent:
             self.board[position] = 0
+            self.piece_count[3 - self.current_player] =- 1
             return True
         else:
             print("Invalid removal. Try again.")
@@ -144,6 +153,10 @@ class Locations:
 
     def increment_turn(self):
         self.turn_count += 1
+
+    
+        
+
 
 
 # Example usage

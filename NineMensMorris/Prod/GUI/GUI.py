@@ -81,6 +81,8 @@ class NineMansMorrisGUI(tk.Tk):
             if self.locations.place_piece(position):
                 self.buttons[position].config(text=str(tempPlayer))
                 print(f"Piece placed by {self.locations.current_player} at position {position}")
+                self.Locations.increment_turn()
+                print(self.locations.turn_count)
             else:
                 print("Invalid move. Try again.")
                 messagebox.showinfo('Invalid', 'Invalid move. Try again.')
@@ -103,6 +105,8 @@ class NineMansMorrisGUI(tk.Tk):
                 #else
                     #continue with piece placement
             #finalize pieces, then switch turn
+        
+    
 
     
         
