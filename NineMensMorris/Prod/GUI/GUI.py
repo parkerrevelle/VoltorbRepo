@@ -68,7 +68,7 @@ class NineMansMorrisGUI(tk.Tk):
             for col in range(7):
                 if (row, col) in validLoc:
                     index = validLoc.index((row, col))
-                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.locations.check_player_turn(index))
+                    self.buttons[index] = tk.Button(self, text=' ', width=10, height=3, command=lambda index=index: self.locations.check_player_turn(self.buttons[index], index))
                     self.buttons[index].grid(row=row, column=col)
                 else:
                     tk.Label(self, text=' ', width=10, height=3).grid(row=row, column=col)

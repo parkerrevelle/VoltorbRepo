@@ -154,11 +154,12 @@ class Locations:
     def increment_turn(self):
         self.turn_count += 1
 
-    def check_player_turn(self, position):
+    def check_player_turn(self, button, position):
         if self.piece_count[self.current_player] > self.pieces_placed[self.current_player]:
             self.player_phases[self.current_player] = 1
-            self.place_piece(position)
-            
+            if self.place_piece(position):
+                button.config(text=str(self.current_player))
+
         elif self.piece_count[self.current_player] <= self.pieces_placed[self.current_player]:
             if self.piece_count[self.current_player] == 3:
                 self.player_phases[self.current_player] = 3
